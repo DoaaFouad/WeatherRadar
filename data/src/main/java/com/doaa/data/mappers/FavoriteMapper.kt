@@ -21,8 +21,8 @@ class FavoriteMapper :
         return Favorite(
             uid = 0,
             city = model.city,
-            latitude = model.lng,
-            longitude = model.lat,
+            latitude = model.lat,
+            longitude = model.lng,
             lastTemperature = model.lastTemperature
         )
     }

@@ -12,7 +12,6 @@
 
 package com.doaa.data.repositories
 
-import android.location.Location
 import com.doaa.data.mappers.Mappers
 import com.doaa.data.remote.api.OpenWeatherAPI
 import com.doaa.domain.entities.WeatherItemModel
@@ -31,7 +30,7 @@ class WeatherRepository(val openWeatherAPI: OpenWeatherAPI) : BaseRespository() 
                         lng = _lng,
                     )
 
-               val response =  Mappers.weatherResponseMapper.mapToItem(weatherData)
+                val response = Mappers.weatherResponseMapper.mapToItem(weatherData)
 
                 response
             }

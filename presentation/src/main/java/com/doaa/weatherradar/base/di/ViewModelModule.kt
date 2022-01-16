@@ -12,6 +12,7 @@
 
 package com.doaa.weatherradar.base.di
 
+import com.doaa.weatherradar.main.favorite.FavoriteViewModel
 import com.doaa.weatherradar.main.weather_details.WeatherDetailsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -19,4 +20,5 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     viewModel { WeatherDetailsViewModel(get(), get(), get()) }
+    viewModel { FavoriteViewModel(get()) }
 }

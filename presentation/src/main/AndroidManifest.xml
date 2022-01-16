@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".main.favorite.FavoriteActivity"/>
+
         <service
             android:name="MyNavigationService"
             android:foregroundServiceType="location"/>

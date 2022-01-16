@@ -23,6 +23,7 @@ class WeatherDetailsContract {
 
     sealed class Intent : ViewIntent {
         object GetWeatherByCurrentLocation : Intent()
+        data class GetWeatherBySelectedLatLng(val lat: String, val lng: String): Intent()
         data class SaveLastKnownLocation(val location: Location) : Intent()
         object AddCurrentWeatherInfoFavorite: Intent()
     }

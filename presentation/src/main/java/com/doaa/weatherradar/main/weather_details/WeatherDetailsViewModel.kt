@@ -42,6 +42,10 @@ class WeatherDetailsViewModel(
                 getWeatherByLocation()
             }
 
+            is WeatherDetailsContract.Intent.GetWeatherBySelectedLatLng -> {
+                getWeatherBySelectedLatLng(intent.lat, intent.lng)
+            }
+
             is WeatherDetailsContract.Intent.SaveLastKnownLocation -> {
                 saveLastKnownLocation(intent.location)
             }
@@ -59,6 +63,26 @@ class WeatherDetailsViewModel(
             val currentLng = locationCacheRepository.getLocationLng()
 
             val response = weatherRepository.getWeatherByLatLng(currentLat, currentLng).await()
+            weatherItemModel = response
+
+            setState {
+                copy(
+                    weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.WeatherDetailsSuccess(
+                        weatherData = response
+                    )
+                )
+            }
+
+        } catch (e: Exception) {
+            setState { copy(weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.Idle) }
+            setEffect { WeatherDetailsContract.Effect.ShowServerErrorToast(Error.GeneralRequestError.description) }
+        }
+    }
+
+    private suspend fun getWeatherBySelectedLatLng(lat: String, lng: String) {
+        setState { copy(weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.Loading) }
+        try {
+            val response = weatherRepository.getWeatherByLatLng(lat, lng).await()
             weatherItemModel = response
 
             setState {

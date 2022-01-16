@@ -23,7 +23,9 @@ import com.doaa.domain.entities.WeatherDailyDetailsItemModel
 import com.doaa.weatherradar.R
 import com.doaa.weatherradar.base.BaseActivity
 import com.doaa.weatherradar.databinding.ActivityWeatherDetailsBinding
+import com.doaa.weatherradar.main.favorite.FavoriteActivity
 import com.doaa.weatherradar.main.location.LastKnownLocationManager
+import com.doaa.weatherradar.utils.BundleKeys
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,7 +43,14 @@ class WeatherDetailsActivity :
 
         initRecyclerviewer()
         initUnfavorited()
-        getLastKnownLocation()
+
+        val lat = intent.extras?.getString(BundleKeys.KEY_LAT)
+        val lng = intent.extras?.getString(BundleKeys.KEY_LNG)
+        if(lat == null || lng == null) {
+            getLastKnownLocation()
+        }else{
+            viewModel.setIntent(WeatherDetailsContract.Intent.GetWeatherBySelectedLatLng(lat, lng))
+        }
     }
 
     override fun observeViewState() {
@@ -69,7 +78,11 @@ class WeatherDetailsActivity :
         }
 
         binding?.ivFavoriteHighlighted?.setOnClickListener {
-            initUnfavorited()
+           // initUnfavorited() // TODO unfavorite behaviour
+        }
+
+        binding?.ivMenuFavorite?.setOnClickListener {
+            navigateToFavorite()
         }
     }
 
@@ -136,6 +149,10 @@ class WeatherDetailsActivity :
     private fun initUnfavorited(){
         binding?.ivFavorite?.visibility = View.VISIBLE
         binding?.ivFavoriteHighlighted?.visibility = View.GONE
+    }
+
+    private fun navigateToFavorite(){
+        navigateToActivity(FavoriteActivity::class.java)
     }
 
     override fun getViewBinding(): ActivityWeatherDetailsBinding {

@@ -22,7 +22,7 @@ data class WeatherRemoteResponse(
     @SerializedName("lat")
     val lat: String?,
 
-    @SerializedName("lng")
+    @SerializedName("lon")
     val lng: String?,
 
     @SerializedName("current")
