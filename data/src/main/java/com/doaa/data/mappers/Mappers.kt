@@ -15,4 +15,5 @@ package com.doaa.data.mappers
 object Mappers {
     val weatherResponseMapper by lazy { WeatherMapper() }
     val favoriteMapper by lazy { FavoriteMapper() }
+    val weatherSingleResponseMapper by lazy { WeatherSingleResponseMapper() }
 }

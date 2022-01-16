@@ -46,6 +46,10 @@ class WeatherDetailsViewModel(
                 getWeatherBySelectedLatLng(intent.lat, intent.lng)
             }
 
+            is WeatherDetailsContract.Intent.GetWeatherByCityKeyword -> {
+                getWeatherByCityKeyword(intent.city)
+            }
+
             is WeatherDetailsContract.Intent.SaveLastKnownLocation -> {
                 saveLastKnownLocation(intent.location)
             }
@@ -79,7 +83,7 @@ class WeatherDetailsViewModel(
         }
     }
 
-    private suspend fun getWeatherBySelectedLatLng(lat: String, lng: String) {
+    private suspend fun getWeatherBySelectedLatLng(lat: String?, lng: String?) {
         setState { copy(weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.Loading) }
         try {
             val response = weatherRepository.getWeatherByLatLng(lat, lng).await()
@@ -99,6 +103,17 @@ class WeatherDetailsViewModel(
         }
     }
 
+    private suspend fun getWeatherByCityKeyword(city: String) {
+        try {
+            val response = weatherRepository.getWeatherByCityName(city).await()
+            getWeatherBySelectedLatLng(response.lat, response.lng)
+
+        } catch (e: Exception) {
+            setState { copy(weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.Idle) }
+            setEffect { WeatherDetailsContract.Effect.ShowServerErrorToast(Error.GeneralRequestError.description) }
+        }
+    }
+
     private fun saveLastKnownLocation(location: Location) {
         locationCacheRepository.setLocationLng(location.longitude.toString())
         locationCacheRepository.setLocationLat(location.latitude.toString())
@@ -111,7 +126,7 @@ class WeatherDetailsViewModel(
                     city = weatherItemModel.name,
                     lat = weatherItemModel.lat,
                     lng = weatherItemModel.lng,
-                    lastTemperature = weatherItemModel.current.temp
+                    lastTemperature = weatherItemModel.current?.temp
                 )
                 favoriteCacheRepository.addToFavorite(favorite)
             }

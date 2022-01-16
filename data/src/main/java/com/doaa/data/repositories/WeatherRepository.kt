@@ -21,7 +21,7 @@ import kotlinx.coroutines.withContext
 
 class WeatherRepository(val openWeatherAPI: OpenWeatherAPI) : BaseRespository() {
 
-    suspend fun getWeatherByLatLng(_lat: String, _lng: String): Deferred<WeatherItemModel> =
+    suspend fun getWeatherByLatLng(_lat: String?, _lng: String?): Deferred<WeatherItemModel> =
         withContext(dispatcherIO) {
             async {
                 val weatherData =
@@ -31,6 +31,20 @@ class WeatherRepository(val openWeatherAPI: OpenWeatherAPI) : BaseRespository() 
                     )
 
                 val response = Mappers.weatherResponseMapper.mapToItem(weatherData)
+
+                response
+            }
+        }
+
+    suspend fun getWeatherByCityName(city: String?): Deferred<WeatherItemModel> =
+        withContext(dispatcherIO) {
+            async {
+                val weatherData =
+                    openWeatherAPI.getWeatherByCityKeyword(
+                       city = city
+                    )
+
+                val response = Mappers.weatherSingleResponseMapper.mapToItem(weatherData)
 
                 response
             }

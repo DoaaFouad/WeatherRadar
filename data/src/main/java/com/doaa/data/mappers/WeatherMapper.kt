@@ -12,10 +12,7 @@
 
 package com.doaa.data.mappers
 
-import com.doaa.data.remote.model.WeatherDetailsRemoteResponse
-import com.doaa.data.remote.model.WeatherRemoteResponse
-import com.doaa.data.remote.model.WeatherStateRemoteResponse
-import com.doaa.data.remote.model.WeatherWeaklyDetailsRemoteResponse
+import com.doaa.data.remote.model.*
 import com.doaa.domain.common.getDayFromTimeStamp
 import com.doaa.domain.entities.*
 
@@ -87,6 +84,24 @@ class WeatherWeeklyDetailsMapper :
             weatherState = model?.weatherState?.map {
                 WeatherStateMapper().mapToItem(it)
             }
+        )
+    }
+}
+
+// used for /weather api as it has different api response structure
+class WeatherSingleResponseMapper :
+    ItemMapper<WeatherSingleRemoteResponse?, WeatherItemModel> {
+    override fun mapFromItem(model: WeatherItemModel): WeatherSingleRemoteResponse {
+        throw UnsupportedOperationException()
+    }
+
+    override fun mapToItem(model: WeatherSingleRemoteResponse?): WeatherItemModel {
+        return WeatherItemModel(
+            name = "",
+            lat = model?.coordinates?.lat,
+            lng = model?.coordinates?.lng,
+            current = null,
+            daily = null
         )
     }
 }

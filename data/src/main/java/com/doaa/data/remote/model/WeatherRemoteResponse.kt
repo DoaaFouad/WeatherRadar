@@ -87,3 +87,20 @@ data class WeatherTemperatureRemoteResponse(
     @SerializedName("day")
     val day: String?,
 )
+
+
+// This is used for /weather, different structure from API
+data class WeatherSingleRemoteResponse(
+
+    @SerializedName("coord")
+    val coordinates: WeatherSingleCoordinatesRemoteResponse?,
+)
+
+data class WeatherSingleCoordinatesRemoteResponse(
+
+    @SerializedName("lat")
+    val lat: String?,
+
+    @SerializedName("lon")
+    val lng: String?,
+)

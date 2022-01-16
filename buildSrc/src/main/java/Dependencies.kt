@@ -28,6 +28,7 @@ object Versions {
 
     // Google play services
     const val PLAY_SERVICES_LOCATION = "19.0.1"
+    const val GOOGLE_PLACES = "1.1.0"
 
     // UI
     const val ANDROID_X = "1.3.2"
@@ -74,6 +75,8 @@ object Libraries {
 
     // Google play services
     const val PLAY_SERVICES_LOCATION = "com.google.android.gms:play-services-location:${Versions.PLAY_SERVICES_LOCATION}"
+    const val GOOLGE_PLACES = "com.google.android.libraries.places:places:${Versions.GOOGLE_PLACES}"
+
     // UI
     const val ANDROID_X = "androidx.core:core-ktx:${Versions.ANDROID_X}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"

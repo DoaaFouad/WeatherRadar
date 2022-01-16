@@ -7,6 +7,9 @@
     <string name="weather_details_low">L</string>
     <string name="weather_details_humidity">Humidity</string>
     <string name="weather_details_today">Today</string>
+    <string name="weather_details_search">Search Cities</string>
 
     <string name="weather_unit">°C</string>
+
+    <string name="place_api_key" translatable="false">AIzaSyD5w2vd2XDWOUkUcGB0dVNQWnz5IPs6N7Y</string>
 </resources>

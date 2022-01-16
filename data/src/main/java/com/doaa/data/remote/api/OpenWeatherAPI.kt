@@ -12,8 +12,8 @@
 
 package com.doaa.data.remote.api
 
-import com.doaa.data.remote.model.BaseResponse
 import com.doaa.data.remote.model.WeatherRemoteResponse
+import com.doaa.data.remote.model.WeatherSingleRemoteResponse
 import com.doaa.data.utils.RemoteConstants
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -28,4 +28,10 @@ interface OpenWeatherAPI {
         @Query("exclude") exclude: String = "hourly,minutely",
         @Query("appid") appId: String = RemoteConstants.Base.API_KEY,
     ): WeatherRemoteResponse
+
+    @GET(RemoteConstants.EndPoint.GET_WEATHER_BY_CITY)
+    suspend fun getWeatherByCityKeyword(
+        @Query("q") city: String?,
+        @Query("appid") appId: String = RemoteConstants.Base.API_KEY,
+    ): WeatherSingleRemoteResponse
 }

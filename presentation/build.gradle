@@ -44,6 +44,7 @@ dependencies {
 
     // Google play services
     implementation Libraries.PLAY_SERVICES_LOCATION
+    implementation Libraries.GOOLGE_PLACES
 
     // UI
     implementation Libraries.ANDROID_X

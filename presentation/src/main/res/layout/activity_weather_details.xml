@@ -31,7 +31,7 @@
         android:id="@+id/iv_favorite"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/ic_favorite"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -41,18 +41,32 @@
         android:id="@+id/iv_favorite_highlighted"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:visibility="gone"
         android:src="@drawable/ic_favorite_highlighted"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_search"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:hint="@string/weather_details_search"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_menu_favorite" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_menu_favorite"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/ic_menu"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -65,8 +79,8 @@
         android:textSize="28sp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintVertical_bias="0.3"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintTop_toBottomOf="@id/et_search"
         app:layout_constraintBottom_toBottomOf="@id/rv_daily"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"/>
