@@ -42,6 +42,9 @@ dependencies {
     // Kotlin
     implementation Libraries.KOTLIN
 
+    // Google play services
+    implementation Libraries.PLAY_SERVICES_LOCATION
+
     // UI
     implementation Libraries.ANDROID_X
     implementation Libraries.APPCOMPAT
@@ -62,6 +65,7 @@ dependencies {
     implementation Libraries.ARCH_COMPONENT_LIFECYCLE
 
     implementation project(':data') // TODO
+    implementation project(':domain')
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

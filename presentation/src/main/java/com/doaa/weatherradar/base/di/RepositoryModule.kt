@@ -12,17 +12,21 @@
 
 package com.doaa.weatherradar.base.di
 
+import android.content.Context
+import com.doaa.anonymouschat.data.cache.LocationCacheRepository
+import com.doaa.anonymouschat.data.cache.SharedPreferencesWrapper
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoryModule = module {
 
-   /* single { EncryptedSharedPreferenceRepository(get()) }
+    single { LocationCacheRepository(get()) }
     single {
-        EncryptedSharedPreferencesWrapper(
-            encryptedSharedPreferences = this.androidContext().getSharedPreferences(
-                "AnonymousChat",
-                Context.MODE_PRIVATE,
-            ), get()
+        SharedPreferencesWrapper(
+           sharedPreferences = this.androidContext().getSharedPreferences(
+              "WeatherRadar",
+              Context.MODE_PRIVATE,
+           ),
         )
-    }*/
+    }
 }

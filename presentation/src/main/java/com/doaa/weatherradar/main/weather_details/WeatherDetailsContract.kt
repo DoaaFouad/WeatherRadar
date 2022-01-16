@@ -12,6 +12,7 @@
 
 package com.doaa.weatherradar.main.weather_details
 
+import android.location.Location
 import com.doaa.weatherradar.base.ViewEffect
 import com.doaa.weatherradar.base.ViewIntent
 import com.doaa.weatherradar.base.ViewState
@@ -20,6 +21,7 @@ class WeatherDetailsContract {
 
     sealed class Intent : ViewIntent {
         object GetWeatherByCurrentLocation : Intent()
+        data class SaveLastKnownLocation(val location: Location) : Intent()
     }
 
     data class State(

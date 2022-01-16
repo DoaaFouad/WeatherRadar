@@ -18,5 +18,5 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
-    viewModel { WeatherDetailsViewModel() }
+    viewModel { WeatherDetailsViewModel(get()) }
 }

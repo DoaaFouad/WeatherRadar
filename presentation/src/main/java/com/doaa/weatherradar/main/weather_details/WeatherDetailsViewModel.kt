@@ -12,9 +12,11 @@
 
 package com.doaa.weatherradar.main.weather_details
 
+import android.location.Location
+import com.doaa.anonymouschat.data.cache.LocationCacheRepository
 import com.doaa.weatherradar.base.BaseViewModel
 
-class WeatherDetailsViewModel :
+class WeatherDetailsViewModel(val locationCacheRepository: LocationCacheRepository) :
     BaseViewModel<WeatherDetailsContract.Intent, WeatherDetailsContract.State, WeatherDetailsContract.Effect>() {
 
     override fun createInitialState(): WeatherDetailsContract.State {
@@ -25,6 +27,15 @@ class WeatherDetailsViewModel :
         when (intent) {
             is WeatherDetailsContract.Intent.GetWeatherByCurrentLocation -> {
             }
+
+            is WeatherDetailsContract.Intent.SaveLastKnownLocation -> {
+                saveLastKnownLocation(intent.location)
+            }
         }
+    }
+
+    private fun saveLastKnownLocation(location: Location) {
+        locationCacheRepository.setLocationLng(location.longitude.toString())
+        locationCacheRepository.setLocationLat(location.latitude.toString())
     }
 }

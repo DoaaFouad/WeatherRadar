@@ -4,19 +4,17 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    compileSdkVersion BuildConfigs.COMPILE_SDK
+    buildToolsVersion BuildConfigs.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion BuildConfigs.MIN_SDK
+        targetSdkVersion BuildConfigs.TARGET_SDK
+        versionCode BuildConfigs.DEVELOPMENT_VERSION_CODE
+        versionName BuildConfigs.DEVELOPMENT_VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
-
     buildTypes {
         release {
             minifyEnabled false

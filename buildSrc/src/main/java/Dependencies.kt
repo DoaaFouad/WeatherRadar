@@ -13,9 +13,9 @@
 object BuildConfigs {
     const val APPLICATION_ID = "com.doaa.weatherradar"
 
-    const val COMPILE_SDK = 30
+    const val COMPILE_SDK = 31
     const val MIN_SDK = 24
-    const val TARGET_SDK = 30
+    const val TARGET_SDK = 31
     const val BUILD_TOOLS_VERSION = "29.0.3"
 
     const val DEVELOPMENT_VERSION_CODE = 1
@@ -26,10 +26,13 @@ object Versions {
     // Kotlin
     const val KOTLIN = "1.3.72"
 
+    // Google play services
+    const val PLAY_SERVICES_LOCATION = "19.0.1"
+
     // UI
     const val ANDROID_X = "1.3.2"
-    const val APPCOMPAT = "1.2.0"
-    const val MATERIAL = "1.1.0"
+    const val APPCOMPAT = "1.3.1"
+    const val MATERIAL = "1.5.0-alpha03"
     const val CONSTRAINT_LAYOUT = "2.0.4"
     const val GLIDE = "4.11.0"
 
@@ -66,6 +69,8 @@ object Libraries {
     // Kotlin
     const val KOTLIN = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.KOTLIN}"
 
+    // Google play services
+    const val PLAY_SERVICES_LOCATION = "com.google.android.gms:play-services-location:${Versions.PLAY_SERVICES_LOCATION}"
     // UI
     const val ANDROID_X = "androidx.core:core-ktx:${Versions.ANDROID_X}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
