@@ -1,16 +1,18 @@
 /*
  *
- * Created by doaafouad on 1/16/22 1:29 PM
+ * Created by doaafouad on 1/16/22 3:44 PM
  * doaa_fouad2006@hotmail.com
  * github.com/DoaaFouad
  * linkedin.com/in/doaafouad/
  * Copyright (c) 2022 . All rights reserved.
- * Last modified 1/15/22 5:49 PM
+ * Last modified 1/16/22 1:48 PM
  *
  *
  */
 
-package com.doaa.anonymouschat.data.cache
+package com.doaa.data.repositories
+
+import com.doaa.anonymouschat.data.cache.SharedPreferencesWrapper
 
 
 class LocationCacheRepository(private val wrapper: SharedPreferencesWrapper) {

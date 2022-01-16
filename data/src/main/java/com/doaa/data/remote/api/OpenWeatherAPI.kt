@@ -12,5 +12,18 @@
 
 package com.doaa.data.remote.api
 
+import com.doaa.data.remote.model.BaseResponse
+import com.doaa.data.remote.model.WeatherRemoteResponse
+import com.doaa.data.utils.RemoteConstants
+import retrofit2.http.GET
+import retrofit2.http.Query
+
 interface OpenWeatherAPI {
+
+    @GET(RemoteConstants.EndPoint.GET_WEATHER_GEO_COORDINATES)
+    suspend fun getWeatherByLatLng(
+        @Query("lat") lat: String?,
+        @Query("lon") lng: String?,
+        @Query("appid") appId: String = RemoteConstants.Base.API_KEY,
+    ): BaseResponse<WeatherRemoteResponse>
 }

@@ -13,6 +13,8 @@
 package com.doaa.weatherradar.main.weather_details
 
 import android.location.Location
+import com.doaa.domain.entities.WeatherDetailsItemModel
+import com.doaa.domain.entities.WeatherItemModel
 import com.doaa.weatherradar.base.ViewEffect
 import com.doaa.weatherradar.base.ViewIntent
 import com.doaa.weatherradar.base.ViewState
@@ -31,6 +33,7 @@ class WeatherDetailsContract {
     sealed class WeatherDetailsViewState {
         object Idle : WeatherDetailsViewState()
         object Loading : WeatherDetailsViewState()
+        data class WeatherDetailsSuccess(val weatherData: WeatherItemModel): WeatherDetailsViewState()
     }
 
     sealed class Effect : ViewEffect {

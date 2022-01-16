@@ -13,10 +13,16 @@
 package com.doaa.weatherradar.main.weather_details
 
 import android.location.Location
-import com.doaa.anonymouschat.data.cache.LocationCacheRepository
+import android.util.Log
+import com.doaa.data.repositories.LocationCacheRepository
+import com.doaa.data.repositories.WeatherRepository
+import com.doaa.domain.common.Error
 import com.doaa.weatherradar.base.BaseViewModel
 
-class WeatherDetailsViewModel(val locationCacheRepository: LocationCacheRepository) :
+class WeatherDetailsViewModel(
+    val locationCacheRepository: LocationCacheRepository,
+    val weatherRepository: WeatherRepository
+) :
     BaseViewModel<WeatherDetailsContract.Intent, WeatherDetailsContract.State, WeatherDetailsContract.Effect>() {
 
     override fun createInitialState(): WeatherDetailsContract.State {
@@ -26,11 +32,34 @@ class WeatherDetailsViewModel(val locationCacheRepository: LocationCacheReposito
     override suspend fun handleIntent(intent: WeatherDetailsContract.Intent) {
         when (intent) {
             is WeatherDetailsContract.Intent.GetWeatherByCurrentLocation -> {
+                getWeatherByLocation()
             }
 
             is WeatherDetailsContract.Intent.SaveLastKnownLocation -> {
                 saveLastKnownLocation(intent.location)
             }
+        }
+    }
+
+    private suspend fun getWeatherByLocation() {
+        setState { copy(weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.Loading) }
+        try {
+            val currentLat = locationCacheRepository.getLocationLat()
+            val currentLng = locationCacheRepository.getLocationLng()
+
+            val response = weatherRepository.getWeatherByLatLng(currentLat, currentLng).await()
+
+            setState {
+                copy(
+                    weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.WeatherDetailsSuccess(
+                        weatherData = response
+                    )
+                )
+            }
+
+        } catch (e: Exception) {
+            setState { copy(weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.Idle) }
+            setEffect { WeatherDetailsContract.Effect.ShowServerErrorToast(Error.GeneralRequestError.description) }
         }
     }
 

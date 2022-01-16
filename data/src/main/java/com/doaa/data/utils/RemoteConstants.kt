@@ -14,6 +14,11 @@ package com.doaa.data.utils
 
 class RemoteConstants {
     object Base {
-        val BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
+       const val BASE_URL = "https://api.openweathermap.org/"
+        const val API_KEY = "8b6482e1a498a5b9bc2fff0dda10076e"
+    }
+
+    object EndPoint {
+        const val GET_WEATHER_GEO_COORDINATES = "data/2.5/weather"
     }
 }

@@ -13,9 +13,10 @@
 package com.doaa.weatherradar.main.weather_details
 
 import android.Manifest
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
-import com.doaa.domain.base.Error
+import com.doaa.domain.common.Error
 import com.doaa.weatherradar.base.BaseActivity
 import com.doaa.weatherradar.databinding.ActivityWeatherDetailsBinding
 import com.doaa.weatherradar.main.location.LastKnownLocationManager
@@ -33,15 +34,7 @@ class WeatherDetailsActivity :
     override fun init() {
         super.init()
 
-        lastKnownLocationManager.execute(onSuccess = {
-            viewModel.setIntent(WeatherDetailsContract.Intent.SaveLastKnownLocation(it))
-        }, requestLocationPermission = {
-            locationPermissionRequest.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
-        })
+        getLastKnownLocation()
     }
 
     override fun observeViewState() {
@@ -61,18 +54,31 @@ class WeatherDetailsActivity :
         super.setListeners()
     }
 
-    // Permissions
-    val locationPermissionRequest = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        when {
-            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                lastKnownLocationManager.execute()
-            }
-            else -> {
-                showLongToast(Error.NoLocationPermissionGranted.description) // TODO localizable
+    private fun getLastKnownLocation(){
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                    lastKnownLocationManager.execute()
+                }
+                else -> {
+                    showLongToast(Error.NoLocationPermissionGranted.description) // TODO localizable
+                }
             }
         }
+
+        lastKnownLocationManager.execute(
+            onSuccess = {
+                viewModel.setIntent(WeatherDetailsContract.Intent.SaveLastKnownLocation(it))
+                viewModel.setIntent(WeatherDetailsContract.Intent.GetWeatherByCurrentLocation)
+            }, requestLocationPermission = {
+            locationPermissionRequest.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        })
     }
 
     override fun getViewBinding(): ActivityWeatherDetailsBinding {

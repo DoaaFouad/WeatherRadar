@@ -17,6 +17,6 @@ import com.doaa.data.remote.builder.RetrofitBuilder
 import org.koin.dsl.module
 
 val apiModule = module {
-    single { RetrofitBuilder(get()) }
+    single { RetrofitBuilder(get()).openWeatherAPI }
     single { OkHttpBuilder() }
 }
