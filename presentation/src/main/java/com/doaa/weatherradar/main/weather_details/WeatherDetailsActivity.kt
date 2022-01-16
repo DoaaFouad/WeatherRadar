@@ -13,10 +13,13 @@
 package com.doaa.weatherradar.main.weather_details
 
 import android.Manifest
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.doaa.domain.common.Error
+import com.doaa.domain.entities.WeatherItemModel
+import com.doaa.domain.entities.WeatherDailyDetailsItemModel
+import com.doaa.weatherradar.R
 import com.doaa.weatherradar.base.BaseActivity
 import com.doaa.weatherradar.databinding.ActivityWeatherDetailsBinding
 import com.doaa.weatherradar.main.location.LastKnownLocationManager
@@ -30,9 +33,12 @@ class WeatherDetailsActivity :
     override val viewModel by viewModel<WeatherDetailsViewModel>()
 
     private val lastKnownLocationManager by inject<LastKnownLocationManager>()
+    private val dailyWeatherAdapter by inject<DailyWeatherAdapter>()
 
     override fun init() {
         super.init()
+
+        initRecyclerviewer()
 
         getLastKnownLocation()
     }
@@ -44,6 +50,9 @@ class WeatherDetailsActivity :
                     is WeatherDetailsContract.WeatherDetailsViewState.Idle -> {
 
                     }
+                    is WeatherDetailsContract.WeatherDetailsViewState.WeatherDetailsSuccess -> {
+                        initWeatherDetails(state.weatherData)
+                    }
                 }
 
             }
@@ -54,7 +63,7 @@ class WeatherDetailsActivity :
         super.setListeners()
     }
 
-    private fun getLastKnownLocation(){
+    private fun getLastKnownLocation() {
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
@@ -73,12 +82,40 @@ class WeatherDetailsActivity :
                 viewModel.setIntent(WeatherDetailsContract.Intent.SaveLastKnownLocation(it))
                 viewModel.setIntent(WeatherDetailsContract.Intent.GetWeatherByCurrentLocation)
             }, requestLocationPermission = {
-            locationPermissionRequest.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_COARSE_LOCATION
+                locationPermissionRequest.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
                 )
-            )
-        })
+            })
+    }
+
+    private fun initWeatherDetails(weatherData: WeatherItemModel) {
+        binding?.tvCityName?.text = weatherData.name
+        binding?.tvCityWeatherState?.text = weatherData.current?.weatherState?.getOrNull(0)?.main
+        binding?.tvCityTemperature?.text =
+            "${weatherData.current.temp} ${getString(R.string.weather_unit)}"
+        binding?.tvCityFeelsLike?.text =
+            "${getString(R.string.weather_details_feels_like)} : ${weatherData.current.feelsLike} ${
+                getString(
+                    R.string.weather_unit
+                )
+            }"
+        binding?.tvCityHumidity?.text =
+            "${getString(R.string.weather_details_humidity)} : ${weatherData.current.humidity}%"
+
+        populateData(weatherData.daily)
+    }
+
+
+    private fun initRecyclerviewer() {
+        binding?.rvDaily?.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding?.rvDaily?.adapter = dailyWeatherAdapter
+    }
+
+    private fun populateData(dailyWeatherData: List<WeatherDailyDetailsItemModel>?) {
+        dailyWeatherAdapter.setData(dailyWeatherData)
     }
 
     override fun getViewBinding(): ActivityWeatherDetailsBinding {

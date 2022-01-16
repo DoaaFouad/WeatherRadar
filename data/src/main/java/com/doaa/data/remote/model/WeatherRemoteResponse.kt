@@ -16,11 +16,14 @@ import com.google.gson.annotations.SerializedName
 
 data class WeatherRemoteResponse(
 
-    @SerializedName("name")
+    @SerializedName("timezone")
     val name: String?,
 
-    @SerializedName("main")
-    val main: WeatherDetailsRemoteResponse?,
+    @SerializedName("current")
+    val current: WeatherDetailsRemoteResponse?,
+
+    @SerializedName("daily")
+    val weeklyWeather: List<WeatherWeaklyDetailsRemoteResponse?>
 )
 
 data class WeatherDetailsRemoteResponse(
@@ -47,5 +50,34 @@ data class WeatherDetailsRemoteResponse(
     val seaLevel: String?,
 
     @SerializedName("grnd_level")
-    val grndLevel: String?
+    val grndLevel: String?,
+
+    @SerializedName("weather")
+    val weatherState: List<WeatherStateRemoteResponse>
+
+)
+
+data class WeatherStateRemoteResponse(
+
+    @SerializedName("main")
+    val main: String?,
+)
+
+data class WeatherWeaklyDetailsRemoteResponse(
+
+    @SerializedName("temp")
+    val temp: WeatherTemperatureRemoteResponse?,
+
+    @SerializedName("dt")
+    val date: Long?,
+
+    @SerializedName("weather")
+    val weatherState: List<WeatherStateRemoteResponse>
+
+)
+
+data class WeatherTemperatureRemoteResponse(
+
+    @SerializedName("day")
+    val day: String?,
 )

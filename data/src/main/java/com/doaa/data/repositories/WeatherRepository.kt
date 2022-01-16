@@ -30,7 +30,10 @@ class WeatherRepository(val openWeatherAPI: OpenWeatherAPI) : BaseRespository() 
                         lat = _lat,
                         lng = _lng,
                     )
-                Mappers.weatherResponseMapper.mapToItem(weatherData.data)
+
+               val response =  Mappers.weatherResponseMapper.mapToItem(weatherData)
+
+                response
             }
         }
 }

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">WeatherRadar</string>
+
+    <!-- Weather details Screen -->
+    <string name="weather_details_feels_like">Feels like</string>
+    <string name="weather_details_high">H</string>
+    <string name="weather_details_low">L</string>
+    <string name="weather_details_humidity">Humidity</string>
+    <string name="weather_details_today">Today</string>
+
+    <string name="weather_unit">°C</string>
 </resources>

@@ -12,9 +12,14 @@
 
 package com.doaa.domain.entities
 
+import java.text.SimpleDateFormat
+import java.util.*
+
+
 data class WeatherItemModel(
     val name: String,
-    val main : WeatherDetailsItemModel
+    val current: WeatherDetailsItemModel,
+    val daily: List<WeatherDailyDetailsItemModel>?
 ) : ItemModel
 
 data class WeatherDetailsItemModel(
@@ -25,5 +30,21 @@ data class WeatherDetailsItemModel(
     val pressure: String?,
     val humidity: String?,
     val seaLevel: String?,
-    val grndLevel: String?
+    val grndLevel: String?,
+    val weatherState: List<WeatherStateItemModel>?
+) : ItemModel
+
+data class WeatherStateItemModel(
+    val main: String?,
+) : ItemModel
+
+data class WeatherDailyDetailsItemModel(
+    val temp: WeatherTemperatureItemModel?,
+    val date: String?,
+    val weatherState: List<WeatherStateItemModel>?
+) : ItemModel
+
+
+data class WeatherTemperatureItemModel(
+    val day: String?
 ) : ItemModel

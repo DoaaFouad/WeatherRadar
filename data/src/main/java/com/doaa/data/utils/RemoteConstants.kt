@@ -19,6 +19,6 @@ class RemoteConstants {
     }
 
     object EndPoint {
-        const val GET_WEATHER_GEO_COORDINATES = "data/2.5/weather"
+        const val GET_WEATHER_GEO_COORDINATES = "data/2.5/onecall"
     }
 }

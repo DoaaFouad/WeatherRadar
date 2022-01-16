@@ -13,8 +13,10 @@
 package com.doaa.weatherradar.base.di
 
 import com.doaa.weatherradar.main.location.LastKnownLocationManager
+import com.doaa.weatherradar.main.weather_details.DailyWeatherAdapter
 import org.koin.dsl.module
 
 val utilsModule = module {
     single { LastKnownLocationManager(get()) }
+    single { DailyWeatherAdapter() }
 }
