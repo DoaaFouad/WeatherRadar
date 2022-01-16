@@ -14,16 +14,23 @@ package com.doaa.weatherradar.main.weather_details
 
 import android.location.Location
 import android.util.Log
+import com.doaa.data.repositories.FavoriteCacheRepository
 import com.doaa.data.repositories.LocationCacheRepository
 import com.doaa.data.repositories.WeatherRepository
 import com.doaa.domain.common.Error
+import com.doaa.domain.entities.FavoriteItemModel
+import com.doaa.domain.entities.WeatherDetailsItemModel
+import com.doaa.domain.entities.WeatherItemModel
 import com.doaa.weatherradar.base.BaseViewModel
 
 class WeatherDetailsViewModel(
     val locationCacheRepository: LocationCacheRepository,
-    val weatherRepository: WeatherRepository
+    val weatherRepository: WeatherRepository,
+    val favoriteCacheRepository: FavoriteCacheRepository
 ) :
     BaseViewModel<WeatherDetailsContract.Intent, WeatherDetailsContract.State, WeatherDetailsContract.Effect>() {
+
+    private lateinit var weatherItemModel: WeatherItemModel
 
     override fun createInitialState(): WeatherDetailsContract.State {
         return WeatherDetailsContract.State(WeatherDetailsContract.WeatherDetailsViewState.Idle)
@@ -38,6 +45,10 @@ class WeatherDetailsViewModel(
             is WeatherDetailsContract.Intent.SaveLastKnownLocation -> {
                 saveLastKnownLocation(intent.location)
             }
+
+            is WeatherDetailsContract.Intent.AddCurrentWeatherInfoFavorite -> {
+                addToFavorite()
+            }
         }
     }
 
@@ -48,6 +59,7 @@ class WeatherDetailsViewModel(
             val currentLng = locationCacheRepository.getLocationLng()
 
             val response = weatherRepository.getWeatherByLatLng(currentLat, currentLng).await()
+            weatherItemModel = response
 
             setState {
                 copy(
@@ -67,4 +79,23 @@ class WeatherDetailsViewModel(
         locationCacheRepository.setLocationLng(location.longitude.toString())
         locationCacheRepository.setLocationLat(location.latitude.toString())
     }
+
+    private suspend fun addToFavorite(){
+        try {
+            if(::weatherItemModel.isInitialized) {
+                val favorite = FavoriteItemModel(
+                    city = weatherItemModel.name,
+                    lat = weatherItemModel.lat,
+                    lng = weatherItemModel.lng,
+                    lastTemperature = weatherItemModel.current.temp
+                )
+                favoriteCacheRepository.addToFavorite(favorite)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            setEffect { WeatherDetailsContract.Effect.ShowServerErrorToast(Error.Invalid.description) }
+        }
+    }
+
+
 }

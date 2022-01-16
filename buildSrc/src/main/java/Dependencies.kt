@@ -56,6 +56,9 @@ object Versions {
     const val RETROFIT_RXJAVA = "2.6.2"
     const val OKHTTP = "3.12.1"
 
+    //Data
+    const val ROOM = "2.2.6"
+    
     // Parsing
     const val GSON = "2.8.6"
 
@@ -105,6 +108,10 @@ object Libraries {
     const val RETROFIT_RXJAVA = "com.squareup.retrofit2:adapter-rxjava2:${Versions.RETROFIT_RXJAVA}"
     const val OKHTTP = "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
     const val GSON = "com.google.code.gson:gson:${Versions.GSON}"
+
+    // Data
+    const val ROOM = "androidx.room:room-runtime:${Versions.ROOM}"
+    const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
 
     // Memory utils
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:${Versions.LEAK_CANARY}"

@@ -19,6 +19,12 @@ data class WeatherRemoteResponse(
     @SerializedName("timezone")
     val name: String?,
 
+    @SerializedName("lat")
+    val lat: String?,
+
+    @SerializedName("lng")
+    val lng: String?,
+
     @SerializedName("current")
     val current: WeatherDetailsRemoteResponse?,
 

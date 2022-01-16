@@ -13,6 +13,7 @@
 package com.doaa.weatherradar.main.weather_details
 
 import android.Manifest
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +40,7 @@ class WeatherDetailsActivity :
         super.init()
 
         initRecyclerviewer()
-
+        initUnfavorited()
         getLastKnownLocation()
     }
 
@@ -61,6 +62,15 @@ class WeatherDetailsActivity :
 
     override fun setListeners() {
         super.setListeners()
+
+        binding?.ivFavorite?.setOnClickListener {
+            viewModel.setIntent(WeatherDetailsContract.Intent.AddCurrentWeatherInfoFavorite)
+            initFavorited()
+        }
+
+        binding?.ivFavoriteHighlighted?.setOnClickListener {
+            initUnfavorited()
+        }
     }
 
     private fun getLastKnownLocation() {
@@ -116,6 +126,16 @@ class WeatherDetailsActivity :
 
     private fun populateData(dailyWeatherData: List<WeatherDailyDetailsItemModel>?) {
         dailyWeatherAdapter.setData(dailyWeatherData)
+    }
+
+    private fun initFavorited(){
+        binding?.ivFavorite?.visibility = View.GONE
+        binding?.ivFavoriteHighlighted?.visibility = View.VISIBLE
+    }
+
+    private fun initUnfavorited(){
+        binding?.ivFavorite?.visibility = View.VISIBLE
+        binding?.ivFavoriteHighlighted?.visibility = View.GONE
     }
 
     override fun getViewBinding(): ActivityWeatherDetailsBinding {

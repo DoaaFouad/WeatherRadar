@@ -33,8 +33,20 @@
         android:layout_height="25dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_favorite"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_favorite_highlighted"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_favorite_highlighted"
+        app:layout_constraintStart_toStartOf="@id/guideline_start"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_menu_favorite"

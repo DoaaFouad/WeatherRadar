@@ -28,6 +28,8 @@ class WeatherMapper :
     override fun mapToItem(model: WeatherRemoteResponse?): WeatherItemModel {
         return WeatherItemModel(
             name = model?.name?.substringAfter("/").toString(),
+            lat = model?.lat,
+            lng = model?.lng,
             current = WeatherDetailsMapper().mapToItem(model = model?.current),
             daily = model?.weeklyWeather?.map {
                 WeatherWeeklyDetailsMapper().mapToItem(it)

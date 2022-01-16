@@ -9,7 +9,7 @@
  *
  */
 
-package com.doaa.anonymouschat.data.cache
+package com.doaa.data.cache.sharedpref
 
 import android.content.SharedPreferences
 

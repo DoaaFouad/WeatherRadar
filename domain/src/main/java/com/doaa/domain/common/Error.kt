@@ -16,4 +16,5 @@ package com.doaa.domain.common
 sealed class Error(val description: String) : Exception(description) {
     object NoLocationPermissionGranted : Error("No Location Permission Granted")
     object GeneralRequestError : Error("Error Requesting Data!")
+    object Invalid : Error("Invalid")
 }

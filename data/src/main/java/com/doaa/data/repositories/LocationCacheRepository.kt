@@ -12,7 +12,7 @@
 
 package com.doaa.data.repositories
 
-import com.doaa.anonymouschat.data.cache.SharedPreferencesWrapper
+import com.doaa.data.cache.sharedpref.SharedPreferencesWrapper
 
 
 class LocationCacheRepository(private val wrapper: SharedPreferencesWrapper) {

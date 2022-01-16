@@ -12,12 +12,11 @@
 
 package com.doaa.domain.entities
 
-import java.text.SimpleDateFormat
-import java.util.*
-
 
 data class WeatherItemModel(
     val name: String,
+    val lat: String?,
+    val lng: String?,
     val current: WeatherDetailsItemModel,
     val daily: List<WeatherDailyDetailsItemModel>?
 ) : ItemModel

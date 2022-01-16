@@ -14,9 +14,13 @@ package com.doaa.weatherradar.base.di
 
 import com.doaa.weatherradar.main.location.LastKnownLocationManager
 import com.doaa.weatherradar.main.weather_details.DailyWeatherAdapter
+import com.emc.voicenote.room.DatabaseBuilder
+import com.emc.voicenote.room.DatabaseInteractor
 import org.koin.dsl.module
 
 val utilsModule = module {
     single { LastKnownLocationManager(get()) }
     single { DailyWeatherAdapter() }
+    single { DatabaseBuilder.buildRoomDB(get()) }
+    single { DatabaseInteractor(get()) }
 }
