@@ -61,6 +61,8 @@ dependencies {
     implementation Libraries.ARCH_COMPONENT
     implementation Libraries.ARCH_COMPONENT_LIFECYCLE
 
+    implementation project(':data') // TODO
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

@@ -13,6 +13,7 @@
 package com.doaa.weatherradar
 
 import android.app.Application
+import com.doaa.weatherradar.base.di.apiModule
 import com.doaa.weatherradar.base.di.repositoryModule
 import com.doaa.weatherradar.base.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -30,7 +31,7 @@ class WeatherRadarApplication : Application() {
         org.koin.core.context.startKoin {
             androidLogger()
             androidContext(this@WeatherRadarApplication)
-            modules(listOf(viewModelModule, repositoryModule))
+            modules(listOf(viewModelModule, repositoryModule, apiModule))
         }
     }
 }
