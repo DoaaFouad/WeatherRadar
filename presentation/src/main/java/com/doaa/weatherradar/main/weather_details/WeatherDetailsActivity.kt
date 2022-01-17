@@ -64,6 +64,13 @@ class WeatherDetailsActivity :
                     is WeatherDetailsContract.WeatherDetailsViewState.Idle -> {
 
                     }
+
+                    is WeatherDetailsContract.WeatherDetailsViewState.InfoFavorite -> {
+                        if(state.isFavorited){
+                            initFavorited()
+                        }
+                    }
+
                     is WeatherDetailsContract.WeatherDetailsViewState.WeatherDetailsSuccess -> {
                         initWeatherDetails(state.weatherData)
                     }
@@ -82,7 +89,7 @@ class WeatherDetailsActivity :
         }
 
         binding?.ivFavoriteHighlighted?.setOnClickListener {
-            // initUnfavorited() // TODO unfavorite behaviour
+          //   initUnfavorited() // TODO unfavorite behaviour
         }
 
         binding?.ivMenuFavorite?.setOnClickListener {
@@ -171,6 +178,7 @@ class WeatherDetailsActivity :
     }
 
     private fun performSearch() {
+        initUnfavorited()
         viewModel.setIntent(WeatherDetailsContract.Intent.GetWeatherByCityKeyword(binding?.etSearch?.text.toString()))
         hideKeyboard()
         binding?.etSearch?.text?.clear()

@@ -37,6 +37,7 @@ class WeatherDetailsContract {
         object Idle : WeatherDetailsViewState()
         object Loading : WeatherDetailsViewState()
         data class WeatherDetailsSuccess(val weatherData: WeatherItemModel): WeatherDetailsViewState()
+        data class InfoFavorite(val isFavorited: Boolean): WeatherDetailsViewState()
     }
 
     sealed class Effect : ViewEffect {

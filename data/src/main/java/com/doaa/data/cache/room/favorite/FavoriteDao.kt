@@ -19,7 +19,7 @@ interface FavoriteDao {
     @Query("SELECT * FROM Favorite")
     fun get(): List<Favorite>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(vararg user: Favorite)
 
     @Delete

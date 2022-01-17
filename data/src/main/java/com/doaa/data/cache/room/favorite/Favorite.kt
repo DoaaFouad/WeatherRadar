@@ -14,9 +14,10 @@ package com.doaa.data.cache.room.favorite
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(indices = [Index(value = ["city"], unique = true)])
 data class Favorite(
     @PrimaryKey(autoGenerate = true) val uid: Int,
     @ColumnInfo(name = "city") var city: String? = "",

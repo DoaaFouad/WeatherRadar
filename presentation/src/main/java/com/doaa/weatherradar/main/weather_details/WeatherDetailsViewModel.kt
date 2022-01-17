@@ -22,6 +22,7 @@ import com.doaa.domain.entities.FavoriteItemModel
 import com.doaa.domain.entities.WeatherDetailsItemModel
 import com.doaa.domain.entities.WeatherItemModel
 import com.doaa.weatherradar.base.BaseViewModel
+import com.doaa.weatherradar.main.favorite.FavoriteContract
 
 class WeatherDetailsViewModel(
     val locationCacheRepository: LocationCacheRepository,
@@ -97,6 +98,8 @@ class WeatherDetailsViewModel(
                 )
             }
 
+            checkIfCurrentWeatherInfoIsFavorited(city = response.name)
+
         } catch (e: Exception) {
             setState { copy(weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.Idle) }
             setEffect { WeatherDetailsContract.Effect.ShowServerErrorToast(Error.GeneralRequestError.description) }
@@ -130,6 +133,28 @@ class WeatherDetailsViewModel(
                 )
                 favoriteCacheRepository.addToFavorite(favorite)
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            setEffect { WeatherDetailsContract.Effect.ShowServerErrorToast(Error.Invalid.description) }
+        }
+    }
+
+    private suspend fun checkIfCurrentWeatherInfoIsFavorited(city: String?) {
+        try {
+            val response = favoriteCacheRepository.getFavoriteList().await()
+            response.forEach {
+                if(it.city == city){
+                    setState {
+                        copy(
+                            weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.InfoFavorite(
+                                isFavorited = true
+                            )
+                        )
+                    }
+                }
+            }
+
+
         } catch (e: Exception) {
             e.printStackTrace()
             setEffect { WeatherDetailsContract.Effect.ShowServerErrorToast(Error.Invalid.description) }
