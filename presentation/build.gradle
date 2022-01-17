@@ -80,7 +80,7 @@ dependencies {
     implementation project(':domain')
 
     //Performance
-    debugImplementation Libraries.LEAK_CANARY
+   // debugImplementation Libraries.LEAK_CANARY
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

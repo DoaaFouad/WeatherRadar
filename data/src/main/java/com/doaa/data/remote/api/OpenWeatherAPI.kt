@@ -24,7 +24,7 @@ interface OpenWeatherAPI {
     suspend fun getWeatherByLatLng(
         @Query("lat") lat: String?,
         @Query("lon") lng: String?,
-        @Query("units") unit: String = "metric",
+        @Query("units") unit: String? = "metric",
         @Query("exclude") exclude: String = "hourly,minutely",
         @Query("appid") appId: String = RemoteConstants.Base.API_KEY,
     ): WeatherRemoteResponse

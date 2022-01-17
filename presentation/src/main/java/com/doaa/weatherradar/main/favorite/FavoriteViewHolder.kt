@@ -26,9 +26,7 @@ class FavoriteViewHolder(
     fun initRow(model: FavoriteItemModel) {
         rowBinding.tvCity.text = model.city
         rowBinding.tvCityTemperature.text = "${model.lastTemperature} ${
-            rowBinding.root.context.resources.getString(
-                R.string.weather_unit
-            )
+            model.unit
         }"
 
         rowBinding.root.setOnClickListener {

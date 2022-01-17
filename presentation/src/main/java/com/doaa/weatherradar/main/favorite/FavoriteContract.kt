@@ -12,6 +12,7 @@
 
 package com.doaa.weatherradar.main.favorite
 
+import com.doaa.domain.common.Unit
 import com.doaa.domain.entities.FavoriteItemModel
 import com.doaa.weatherradar.base.ViewEffect
 import com.doaa.weatherradar.base.ViewIntent
@@ -21,6 +22,7 @@ class FavoriteContract {
 
     sealed class Intent : ViewIntent {
         object GetFavorites : Intent()
+        data class SetSuitableUnit(val unit: Unit): Intent()
     }
 
     data class State(

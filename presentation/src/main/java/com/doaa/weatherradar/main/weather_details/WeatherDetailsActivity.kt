@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.doaa.domain.common.Error
+import com.doaa.domain.common.Unit
 import com.doaa.domain.entities.WeatherDailyDetailsItemModel
 import com.doaa.domain.entities.WeatherItemModel
 import com.doaa.weatherradar.R
@@ -136,15 +137,19 @@ class WeatherDetailsActivity :
     }
 
     private fun initWeatherDetails(weatherData: WeatherItemModel) {
+        val unitString = when (weatherData.unit) {
+            Unit.Celsius -> getString(R.string.weather_celsius_unit)
+            Unit.Fahrenheit -> getString(R.string.weather_fahrenheit_unit)
+            else -> { getString(R.string.weather_celsius_unit)}
+        }
+
         binding?.tvCityName?.text = weatherData.name
         binding?.tvCityWeatherState?.text = weatherData.current?.weatherState?.getOrNull(0)?.main
         binding?.tvCityTemperature?.text =
-            "${weatherData.current?.temp} ${getString(R.string.weather_unit)}"
+            "${weatherData.current?.temp} ${unitString}"
         binding?.tvCityFeelsLike?.text =
             "${getString(R.string.weather_details_feels_like)} : ${weatherData.current?.feelsLike} ${
-                getString(
-                    R.string.weather_unit
-                )
+                unitString
             }"
         binding?.tvCityHumidity?.text =
             "${getString(R.string.weather_details_humidity)} : ${weatherData.current?.humidity}%"

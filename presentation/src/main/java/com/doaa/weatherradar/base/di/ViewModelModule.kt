@@ -19,6 +19,6 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
 
-    viewModel { WeatherDetailsViewModel(get(), get(), get()) }
-    viewModel { FavoriteViewModel(get()) }
+    viewModel { WeatherDetailsViewModel(get(), get(), get(), get()) }
+    viewModel { FavoriteViewModel(get(), get()) }
 }

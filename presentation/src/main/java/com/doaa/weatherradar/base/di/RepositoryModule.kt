@@ -16,6 +16,7 @@ import android.content.Context
 import com.doaa.data.repositories.LocationCacheRepository
 import com.doaa.data.cache.sharedpref.SharedPreferencesWrapper
 import com.doaa.data.repositories.FavoriteCacheRepository
+import com.doaa.data.repositories.SettingsRepository
 import com.doaa.data.repositories.WeatherRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -25,6 +26,7 @@ val repositoryModule = module {
     single { WeatherRepository(get()) }
     single { LocationCacheRepository(get()) }
     single { FavoriteCacheRepository(get()) }
+    single { SettingsRepository(get()) }
     single {
         SharedPreferencesWrapper(
            sharedPreferences = this.androidContext().getSharedPreferences(

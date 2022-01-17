@@ -23,7 +23,8 @@ class FavoriteMapper :
             city = model.city,
             latitude = model.lat,
             longitude = model.lng,
-            lastTemperature = model.lastTemperature
+            lastTemperature = model.lastTemperature,
+            unit = model.unit
         )
     }
 
@@ -32,7 +33,8 @@ class FavoriteMapper :
             city = model?.city,
             lat = model?.latitude,
             lng = model?.longitude,
-            lastTemperature = model?.lastTemperature
+            lastTemperature = model?.lastTemperature,
+            unit = model?.unit
         )
     }
 }

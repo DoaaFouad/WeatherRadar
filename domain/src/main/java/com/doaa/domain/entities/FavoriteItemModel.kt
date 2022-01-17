@@ -16,5 +16,6 @@ data class FavoriteItemModel(
     val city: String?,
     val lat: String?,
     val lng: String?,
-    val lastTemperature: String?
+    val lastTemperature: String?,
+    val unit: String?
 ) : ItemModel

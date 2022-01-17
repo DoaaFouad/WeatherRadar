@@ -30,7 +30,8 @@ class WeatherMapper :
             current = WeatherDetailsMapper().mapToItem(model = model?.current),
             daily = model?.weeklyWeather?.map {
                 WeatherWeeklyDetailsMapper().mapToItem(it)
-            }
+            },
+            unit = null
         )
     }
 }
@@ -101,7 +102,8 @@ class WeatherSingleResponseMapper :
             lat = model?.coordinates?.lat,
             lng = model?.coordinates?.lng,
             current = null,
-            daily = null
+            daily = null,
+            unit = null
         )
     }
 }

@@ -13,21 +13,21 @@
 package com.doaa.weatherradar.main.weather_details
 
 import android.location.Location
-import android.util.Log
 import com.doaa.data.repositories.FavoriteCacheRepository
 import com.doaa.data.repositories.LocationCacheRepository
+import com.doaa.data.repositories.SettingsRepository
 import com.doaa.data.repositories.WeatherRepository
 import com.doaa.domain.common.Error
+import com.doaa.domain.common.Unit
 import com.doaa.domain.entities.FavoriteItemModel
-import com.doaa.domain.entities.WeatherDetailsItemModel
 import com.doaa.domain.entities.WeatherItemModel
 import com.doaa.weatherradar.base.BaseViewModel
-import com.doaa.weatherradar.main.favorite.FavoriteContract
 
 class WeatherDetailsViewModel(
     val locationCacheRepository: LocationCacheRepository,
     val weatherRepository: WeatherRepository,
-    val favoriteCacheRepository: FavoriteCacheRepository
+    val favoriteCacheRepository: FavoriteCacheRepository,
+    val settingsRepository: SettingsRepository
 ) :
     BaseViewModel<WeatherDetailsContract.Intent, WeatherDetailsContract.State, WeatherDetailsContract.Effect>() {
 
@@ -66,8 +66,10 @@ class WeatherDetailsViewModel(
         try {
             val currentLat = locationCacheRepository.getLocationLat()
             val currentLng = locationCacheRepository.getLocationLng()
+            val unit =  settingsRepository.getUnit()
 
-            val response = weatherRepository.getWeatherByLatLng(currentLat, currentLng).await()
+            val response = weatherRepository.getWeatherByLatLng(currentLat, currentLng, unit).await()
+            response.unit = checkUnit()
             weatherItemModel = response
 
             setState {
@@ -87,13 +89,15 @@ class WeatherDetailsViewModel(
     private suspend fun getWeatherBySelectedLatLng(lat: String?, lng: String?) {
         setState { copy(weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.Loading) }
         try {
-            val response = weatherRepository.getWeatherByLatLng(lat, lng).await()
+            val unit =  settingsRepository.getUnit()
+            val response = weatherRepository.getWeatherByLatLng(lat, lng, unit).await()
             weatherItemModel = response
+            weatherItemModel.unit = checkUnit()
 
             setState {
                 copy(
                     weatherDetailsViewState = WeatherDetailsContract.WeatherDetailsViewState.WeatherDetailsSuccess(
-                        weatherData = response
+                        weatherData = weatherItemModel
                     )
                 )
             }
@@ -129,7 +133,11 @@ class WeatherDetailsViewModel(
                     city = weatherItemModel.name,
                     lat = weatherItemModel.lat,
                     lng = weatherItemModel.lng,
-                    lastTemperature = weatherItemModel.current?.temp
+                    lastTemperature = weatherItemModel.current?.temp,
+                    unit = when(weatherItemModel.unit) {
+                        Unit.Celsius -> "C"
+                        else -> "F"
+                    }
                 )
                 favoriteCacheRepository.addToFavorite(favorite)
             }
@@ -161,5 +169,16 @@ class WeatherDetailsViewModel(
         }
     }
 
-
+    private fun checkUnit(): Unit {
+        val unit = settingsRepository.getUnit()
+        return when (unit) {
+            Unit.Celsius.description -> {
+                Unit.Celsius
+            }
+            Unit.Fahrenheit.description -> {
+                Unit.Fahrenheit
+            }
+            else -> Unit.Celsius
+        }
+    }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~ Created by doaafouad on 1/17/22 6:10 AM
+  ~ doaa_fouad2006@hotmail.com
+  ~ github.com/DoaaFouad
+  ~ linkedin.com/in/doaafouad/
+  ~ Copyright (c) 2022 . All rights reserved.
+  ~ Last modified 1/17/22 6:10 AM
+  ~
+  ~
+  -->
+
+<resources>
+
+    <style name="AppearanceDialogTheme" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:colorActivatedHighlight">@android:color/black</item>
+        <item name="android:colorControlActivated">@android:color/black</item>
+        <item name="colorControlNormal">@android:color/black</item>
+        <item name="colorControlActivated">@android:color/black</item>
+        <item name="dialogCornerRadius">8dp</item>
+    </style>
+</resources>

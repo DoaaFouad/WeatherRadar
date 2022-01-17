@@ -12,13 +12,15 @@
 
 package com.doaa.domain.entities
 
+import com.doaa.domain.common.Unit
 
 data class WeatherItemModel(
     val name: String?,
     val lat: String?,
     val lng: String?,
     val current: WeatherDetailsItemModel?,
-    val daily: List<WeatherDailyDetailsItemModel>?
+    val daily: List<WeatherDailyDetailsItemModel>?,
+    var unit: Unit?
 ) : ItemModel
 
 data class WeatherDetailsItemModel(

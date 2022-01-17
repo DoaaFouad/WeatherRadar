@@ -13,10 +13,15 @@
 package com.doaa.weatherradar.main.favorite
 
 import com.doaa.data.repositories.FavoriteCacheRepository
+import com.doaa.data.repositories.SettingsRepository
 import com.doaa.domain.common.Error
+import com.doaa.domain.common.Unit
 import com.doaa.weatherradar.base.BaseViewModel
 
-class FavoriteViewModel(val favoriteCacheRepository: FavoriteCacheRepository) :
+class FavoriteViewModel(
+    val favoriteCacheRepository: FavoriteCacheRepository,
+    val settingsRepository: SettingsRepository
+) :
     BaseViewModel<FavoriteContract.Intent, FavoriteContract.State, FavoriteContract.Effect>() {
 
     override fun createInitialState(): FavoriteContract.State {
@@ -28,17 +33,20 @@ class FavoriteViewModel(val favoriteCacheRepository: FavoriteCacheRepository) :
             is FavoriteContract.Intent.GetFavorites -> {
                 getFavoriteList()
             }
+
+            is FavoriteContract.Intent.SetSuitableUnit -> {
+                setUnit(intent.unit)
+            }
         }
     }
 
     private suspend fun getFavoriteList() {
         try {
             val response = favoriteCacheRepository.getFavoriteList().await()
-
             setState {
                 copy(
                     favoriteViewState = FavoriteContract.FavoriteViewState.GetFavoriteSuccess(
-                        favoriteList = response
+                        favoriteList = response,
                     )
                 )
             }
@@ -47,5 +55,9 @@ class FavoriteViewModel(val favoriteCacheRepository: FavoriteCacheRepository) :
             e.printStackTrace()
             setEffect { FavoriteContract.Effect.ShowServerErrorToast(Error.Invalid.description) }
         }
+    }
+
+    private fun setUnit(unit: Unit) {
+        settingsRepository.setUnit(unit = unit.description)
     }
 }

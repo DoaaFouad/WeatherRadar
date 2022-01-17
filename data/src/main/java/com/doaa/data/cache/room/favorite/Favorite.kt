@@ -23,5 +23,6 @@ data class Favorite(
     @ColumnInfo(name = "city") var city: String? = "",
     @ColumnInfo(name = "lat") var latitude: String? = "",
     @ColumnInfo(name = "lng") var longitude: String? = "",
+    @ColumnInfo(name = "unit") var unit: String? = "",
     @ColumnInfo(name = "last_temperature") var lastTemperature: String? = "",
 )

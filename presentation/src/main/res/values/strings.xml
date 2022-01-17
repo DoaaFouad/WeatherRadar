@@ -9,7 +9,9 @@
     <string name="weather_details_today">Today</string>
     <string name="weather_details_search">Search Cities</string>
 
-    <string name="weather_unit">°C</string>
+    <string name="weather_celsius_unit">°C</string>
+    <string name="weather_fahrenheit_unit">°F</string>
+    <string name="weather_choose_unit">Choose suitable unit</string>
 
     <string name="place_api_key" translatable="false">AIzaSyD5w2vd2XDWOUkUcGB0dVNQWnz5IPs6N7Y</string>
 </resources>
