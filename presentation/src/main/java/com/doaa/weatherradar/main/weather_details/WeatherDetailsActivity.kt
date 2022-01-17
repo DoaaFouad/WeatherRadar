@@ -170,6 +170,7 @@ class WeatherDetailsActivity :
     private fun performSearch() {
         viewModel.setIntent(WeatherDetailsContract.Intent.GetWeatherByCityKeyword(binding?.etSearch?.text.toString()))
         hideKeyboard()
+        binding?.etSearch?.text?.clear()
     }
 
     // TODO Future work
