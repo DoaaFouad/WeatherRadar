@@ -104,7 +104,10 @@ class WeatherDetailsActivity :
         ) { permissions ->
             when {
                 permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                    lastKnownLocationManager.execute()
+                    lastKnownLocationManager.execute(onSuccess = {
+                        viewModel.setIntent(WeatherDetailsContract.Intent.SaveLastKnownLocation(it))
+                        viewModel.setIntent(WeatherDetailsContract.Intent.GetWeatherByCurrentLocation)
+                    })
                 }
                 else -> {
                     showLongToast(Error.NoLocationPermissionGranted.description) // TODO localizable
